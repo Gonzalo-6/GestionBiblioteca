@@ -1,9 +1,13 @@
 package biblioteca.simple.modelo;
 
-public class Pelicula extends Producto{
+import biblioteca.simple.contratos.Prestable;
+
+public class Pelicula extends Producto implements Prestable {
 
     private String director;
     private int minutosDuracion;
+    private boolean prestado;
+    private Usuario prestadoA;
 
 
     public Pelicula(int id, String titulo, String anho, Formato formato, String director, int minutosDuracion) {
@@ -25,6 +29,19 @@ public class Pelicula extends Producto{
     public int getMinutosDuracion() {
         return minutosDuracion;
     }
+
+    @Override public void prestar(Usuario u){
+        if(prestado) throw new IllegalStateException("Ya esta prestado.");
+        this.prestado = true;
+        this.prestadoA = u;
+    }
+
+    @Override public void devolver(){
+        this.prestado = false;
+        this.prestadoA = null;
+    }
+
+    @Override public boolean estaPrestado() {return this.prestado; }
 
     @Override
     public String toString() {
