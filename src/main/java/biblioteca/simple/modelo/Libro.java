@@ -29,16 +29,11 @@ public class Libro extends Producto implements Prestable {
         return autor;
     }
 
-
-
     @Override public void prestar(Usuario u){
         if(prestado) throw new IllegalStateException("Ya está prestado");
         this.prestado = true;
         this.prestadoA = u;
     }
-
-
-
 
 
     @Override

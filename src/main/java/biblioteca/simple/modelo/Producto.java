@@ -25,11 +25,11 @@ public abstract class Producto {
         return id;
     }
 
-    protected String getTitulo() {
+    public String getTitulo() {
         return titulo;
     }
 
-    protected String getAnho() {
+    public String getAnho() {
         return anho;
     }
 
