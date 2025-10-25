@@ -33,7 +33,7 @@ public abstract class Producto {
         return anho;
     }
 
-    protected Formato getFormato() {
+    public Formato getFormato() {
         return formato;
     }
 
