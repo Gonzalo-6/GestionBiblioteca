@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Catalogo {
 
+
     private final List<Producto> productos = new ArrayList<>();
 
 
