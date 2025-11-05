@@ -31,15 +31,15 @@ public class Main {
     }
 
     private static void cargarDatos(){
-        catalogo.alta(new Libro("Ozzy Osbourne: El Príncipe de las tinieblas", "2024",Formato.FISICO, "979-8303868120", "John Walsh"  ));
-        catalogo.alta(new Libro("Vida", "2010",Formato.FISICO, "9788448024437", "Keith Richards" ));
-        catalogo.alta(new Libro("DESAYUNO CON JOHN LENNON: Y OTRAS CRONICAS PARA LA HISTORIA DEL ROCK", "2010",Formato.DIGITAL, "9788475069357", "Robert Hilburn"));
-        catalogo.alta(new Libro("FILOSOFIA DE LA CANCION", "2004",Formato.DIGITAL, " 9788433910196", "Bod Dylan"));
+        catalogo.alta(new Libro(1,"Ozzy Osbourne: El Príncipe de las tinieblas", "2024",Formato.FISICO, "979-8303868120", "John Walsh"  ));
+        catalogo.alta(new Libro(2,"Vida", "2010",Formato.FISICO, "9788448024437", "Keith Richards" ));
+        catalogo.alta(new Libro(3,"DESAYUNO CON JOHN LENNON: Y OTRAS CRONICAS PARA LA HISTORIA DEL ROCK", "2010",Formato.DIGITAL, "9788475069357", "Robert Hilburn"));
+        catalogo.alta(new Libro(4,"FILOSOFIA DE LA CANCION", "2004",Formato.DIGITAL, " 9788433910196", "Bod Dylan"));
 
-        catalogo.alta(new Pelicula("Airbag", "1997", Formato.FISICO, "Juanma Bajo Ulloa", 125));
-        catalogo.alta(new Pelicula("Snatch cerdos y diamantes", "2000", Formato.DIGITAL, "Guy Ritchie", 104));
-        catalogo.alta(new Pelicula("La vida de Brian", "1979", Formato.FISICO, "Terry Jones", 93));
-        catalogo.alta(new Pelicula("Eduardo manos tijeras", "1990", Formato.DIGITAL, "Tim Burton", 98));
+        catalogo.alta(new Pelicula(5,"Airbag", "1997", Formato.FISICO, "Juanma Bajo Ulloa", 125));
+        catalogo.alta(new Pelicula(6,"Snatch cerdos y diamantes", "2000", Formato.DIGITAL, "Guy Ritchie", 104));
+        catalogo.alta(new Pelicula(7,"La vida de Brian", "1979", Formato.FISICO, "Terry Jones", 93));
+        catalogo.alta(new Pelicula(8,"Eduardo manos tijeras", "1990", Formato.DIGITAL, "Tim Burton", 98));
 
 
         usuarios.add(new Usuario(1,"Pako"));
