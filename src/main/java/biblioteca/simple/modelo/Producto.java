@@ -21,7 +21,7 @@ public abstract class Producto {
         this.formato = formato;
     }
 
-    protected int getId() {
+    public int getId() {
         return id;
     }
 
