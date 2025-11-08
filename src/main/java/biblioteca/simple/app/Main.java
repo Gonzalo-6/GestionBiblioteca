@@ -2,6 +2,7 @@ package biblioteca.simple.app;
 import biblioteca.simple.contratos.Prestable;
 import biblioteca.simple.modelo.*;
 import biblioteca.simple.servicios.Catalogo;
+import biblioteca.simple.servicios.GestorUsuarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        usuarios.addAll(GestorUsuarios.cargarUsuarios());
         cargarDatos();
         menu();
     }
@@ -41,11 +43,13 @@ public class Main {
         catalogo.alta(new Pelicula(7,"La vida de Brian", "1979", Formato.FISICO, "Terry Jones", 93));
         catalogo.alta(new Pelicula(8,"Eduardo manos tijeras", "1990", Formato.DIGITAL, "Tim Burton", 98));
 
-
-        usuarios.add(new Usuario(1,"Pako"));
-        usuarios.add(new Usuario(2,"kike"));
-        usuarios.add(new Usuario(3,"Gema"));
-        usuarios.add(new Usuario(4,"Lidia"));
+        if (usuarios.isEmpty()) {
+            usuarios.add(new Usuario(1, "Pako"));
+            usuarios.add(new Usuario(2, "kike"));
+            usuarios.add(new Usuario(3, "Gema"));
+            usuarios.add(new Usuario(4, "Lidia"));
+            GestorUsuarios.guardarUsuarios(usuarios);
+        }
     }
 
     private static void menu(){
@@ -61,6 +65,7 @@ public class Main {
             System.out.println("3. Buscar por año");
             System.out.println("4. Alquilar");
             System.out.println("5. Devoluciones");
+            System.out.println("6. Añadir usuario");
             System.out.println("0. Salir");
             System.out.println("Elige una opción: ");
             while(!sc.hasNextInt()) sc.next();
@@ -74,6 +79,7 @@ public class Main {
                 case 3 -> buscarPorAnio();
                 case 4 -> prestar();
                 case 5 -> devolver();
+                case 6 -> anhadirUsuario();
                 case 0 ->System.out.println("Sayonara!");
                 default -> System.out.println("Opción no válida");
             }
@@ -216,6 +222,22 @@ public class Main {
         System.out.println("Devuleto correctamente");
 
     }
+    public static void anhadirUsuario(){
+        System.out.println("Introduce el nombre del nuevo usuario:");
+        String nombre = sc.nextLine();
+
+        // Calcular nuevo ID automáticamente
+        int nuevoId = usuarios.isEmpty() ? 1 : usuarios.get(usuarios.size() - 1).getId() + 1;
+
+        Usuario nuevo = new Usuario(nuevoId, nombre);
+        usuarios.add(nuevo);
+
+        // Guardar lista actualizada en JSON
+        GestorUsuarios.guardarUsuarios(usuarios);
+
+        System.out.println("Usuario añadido correctamente con ID " + nuevoId);
+    }
+
 
 
 }
