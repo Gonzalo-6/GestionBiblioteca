@@ -4,6 +4,7 @@ import biblioteca.simple.modelo.*;
 import biblioteca.simple.servicios.Catalogo;
 import biblioteca.simple.servicios.GestorUsuarios;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -74,7 +75,7 @@ public class Main {
             sc.nextLine();
 
             switch (op){
-                case 1 ->listar();
+                case 1 -> listar();
                 case 2 -> buscarPorTitulo();
                 case 3 -> buscarPorAnio();
                 case 4 -> prestar();
@@ -223,11 +224,39 @@ public class Main {
 
     }
     public static void anhadirUsuario(){
-        System.out.println("Introduce el nombre del nuevo usuario:");
-        String nombre = sc.nextLine();
+        String nombre;
+        while (true){
+            System.out.println("Introduce el nombre del nuevo usuario:");
+            nombre = sc.nextLine();
+            if (nombre == null) nombre ="";
+            nombre = nombre.trim();
+
+            if (nombre.isEmpty()){
+                System.out.println("Nombre no valido,intenalo de nuevo.");
+                continue;
+            }
+
+            // duplicidad de nombres
+            boolean existe = false;
+            for (Usuario u : usuarios) {
+                if (u.getNombre() != null && u.getNombre().equalsIgnoreCase(nombre)) {
+                    existe = true;
+                    break;
+                }
+            }
+
+            if (existe) {
+                System.out.println("Ya existe un usuario con ese nombre. Introduce otro nombre.");
+                continue;
+            }
+
+            break;
+
+        }
 
         // Calcular nuevo ID automáticamente
-        int nuevoId = usuarios.isEmpty() ? 1 : usuarios.get(usuarios.size() - 1).getId() + 1;
+
+        int nuevoId = usuarios.stream().mapToInt(Usuario::getId).max().orElse(0) + 1;
 
         Usuario nuevo = new Usuario(nuevoId, nombre);
         usuarios.add(nuevo);
@@ -235,7 +264,7 @@ public class Main {
         // Guardar lista actualizada en JSON
         GestorUsuarios.guardarUsuarios(usuarios);
 
-        System.out.println("Usuario añadido correctamente con ID " + nuevoId);
+        System.out.println("Usuario añadido correctamente con ID " + nuevoId + " y nombre '" + nombre+ "'.");
     }
 
 
