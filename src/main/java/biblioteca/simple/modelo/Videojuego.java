@@ -2,8 +2,6 @@ package biblioteca.simple.modelo;
 
 import biblioteca.simple.contratos.Prestable;
 
-import java.text.Format;
-
 public class Videojuego extends Producto implements Prestable{
 
     private String plataforma;

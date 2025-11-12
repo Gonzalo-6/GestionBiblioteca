@@ -44,6 +44,12 @@ public class Main {
         catalogo.alta(new Pelicula(7,"La vida de Brian", "1979", Formato.FISICO, "Terry Jones", 93));
         catalogo.alta(new Pelicula(8,"Eduardo manos tijeras", "1990", Formato.DIGITAL, "Tim Burton", 98));
 
+        catalogo.alta(new Videojuego(9,"Gears of war", "2007", Formato.DIGITAL, "Xbox", "Acción-Aventura"));
+        catalogo.alta(new Videojuego(10,"Gran turismo 7", "2022", Formato.FISICO, "PS5" ,"Deportivo-carreras"));
+        catalogo.alta(new Videojuego(11,"World of Warcraft", "1994", Formato.DIGITAL,"PC", "Rol-multijugador"));
+        catalogo.alta(new Videojuego(12,"Street Fighter II", "1991", Formato.FISICO, "Super Nintendo", "Lucha"));
+
+
         if (usuarios.isEmpty()) {
             usuarios.add(new Usuario(1, "Pako"));
             usuarios.add(new Usuario(2, "kike"));
@@ -81,7 +87,7 @@ public class Main {
                 case 4 -> prestar();
                 case 5 -> devolver();
                 case 6 -> anhadirUsuario();
-                case 0 ->System.out.println("Sayonara!");
+                case 0 ->System.out.println("Gracias por confiar en tu VideoClub!");
                 default -> System.out.println("Opción no válida");
             }
 
