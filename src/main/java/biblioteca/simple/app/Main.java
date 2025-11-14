@@ -9,17 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-//crear objeto catalogo
-// lista de usuarios
 
-//carga de 4 libros + 4 peliculas
-//carga de 4 usuarios
 
-//Menu(1.listar, 2. buscar por titulo, 3.buscar por año.
-// 4. prestar ¿que porducto?que esten libres, ¿que usuario?,
-// 5. devolver lista de cosas prestadas o que te de error si ya esta prestado, 6.salir
 public class Main {
 
+    //ponemos final para que no se pueda reasignar
     private static final Catalogo catalogo = new Catalogo();
 
     private static final List<Usuario> usuarios = new ArrayList<>();
@@ -32,7 +26,7 @@ public class Main {
         cargarDatos();
         menu();
     }
-
+        //Libros, peliculas y videojuegos que cargar
     private static void cargarDatos(){
         catalogo.alta(new Libro(1,"Ozzy Osbourne: El Príncipe de las tinieblas", "2024",Formato.FISICO, "979-8303868120", "John Walsh"  ));
         catalogo.alta(new Libro(2,"Vida", "2010",Formato.FISICO, "9788448024437", "Keith Richards" ));
@@ -58,7 +52,7 @@ public class Main {
             GestorUsuarios.guardarUsuarios(usuarios);
         }
     }
-
+        //Menú
     private static void menu(){
 
         int op;
@@ -73,6 +67,7 @@ public class Main {
             System.out.println("4. Alquilar");
             System.out.println("5. Devoluciones");
             System.out.println("6. Añadir usuario");
+            System.out.println("7. Lista de Usuarios");
             System.out.println("0. Salir");
             System.out.println("Elige una opción: ");
             while(!sc.hasNextInt()) sc.next();
@@ -87,6 +82,7 @@ public class Main {
                 case 4 -> prestar();
                 case 5 -> devolver();
                 case 6 -> anhadirUsuario();
+                case 7 -> listarUsuarios();
                 case 0 ->System.out.println("Gracias por confiar en tu VideoClub!");
                 default -> System.out.println("Opción no válida");
             }
@@ -95,35 +91,45 @@ public class Main {
     }
 
     private static void listar(){
+
+        //Llamamos a la lista
         List<Producto> lista = catalogo.listar();
 
+        //En caso de que la lista este vacia
         if (lista.isEmpty()){
             System.out.println("Catalogo vacío");
             return;
         }
+        //Impresión de la lista
         System.out.println("\n--- LISTADO DE PRODUCTOS ---");
         for (Producto p : lista) System.out.println("- " + p);
     }
 
     private static void buscarPorTitulo(){
+        //buscar por titulo
         System.out.println("Título(escribe parte del título): ");
         String t = sc.nextLine();
+        //impresión de la busqueda
         catalogo.buscar(t).forEach(p  -> System.out.println("- " + p));
     }
 
     private static void buscarPorAnio(){
+        //busqueda por título
         System.out.println("Año: ");
         int a = sc.nextInt();
         sc.nextLine();
+        //impresión de la busqueda
         catalogo.buscar(a).forEach(p  -> System.out.println("- " + p));
     }
 
 
     private static void listarUsuarios(){
+        //Si la lista está vacía
         if(usuarios.isEmpty()){
             System.out.println("No hay usuarios registrados");
             return;
         }
+        //Mostrar lista de usuarios
         System.out.println("Lista usuarios");
         usuarios.forEach( u ->
                 System.out.println("- Código : " + u.getId() + "| Nombre: " + u.getNombre() )
@@ -144,18 +150,23 @@ public class Main {
                 .filter(p -> p instanceof Prestable pN && !pN.estaPrestado())
                 .collect(Collectors.toList());
 
+        //si los productos no estan disponibles
         if (disponibles.isEmpty()){
             System.out.println("No hay productos para prestar");
             return;
         }
 
+        //lista de productos disponibles
         System.out.println("-- PRODUCTOS DISPONIBLES --");
         disponibles.forEach(p -> System.out.println("- ID: " + p.getId() + " | " + p));
 
+        //Seleccionar el producto que queremos
         System.out.println("Escribe el id del producto: ");
         int id = sc.nextInt();
         sc.nextLine();
 
+
+        //Asignación de la maquina al producto que hemos elegido
         Producto pEncontrado = disponibles.stream()
                 .filter(p ->{
                         try{
@@ -174,11 +185,14 @@ public class Main {
 
                 listarUsuarios();
 
+         //Seleccionar usuario
         System.out.println("Ingresa código de usuario");
 
         int cUsuario = sc.nextInt();
         sc.nextLine();
         Usuario u1 = getUsuarioPorCodigo(cUsuario);
+
+        //si no se encuentra el usuario
 
         if (u1 == null){
             System.out.println("Usuario no encontrado");
@@ -191,23 +205,29 @@ public class Main {
 
     public static void devolver(){
 
+        //listado de productos prestado
         List<Producto> pPrestados = catalogo.listar().stream()
                 .filter(p -> p instanceof Prestable pN && pN.estaPrestado())
                 .collect(Collectors.toList());
 
+        //No hay lista para prestar
         if (pPrestados .isEmpty()){
             System.out.println("No hay productos para prestar");
             return;
         }
 
+        //productos disponibles
         System.out.println("-- PRODUCTOS DISPONIBLES --");
         pPrestados .forEach(p -> System.out.println("- ID: " + p.getId() + " | " + p));
 
 
+        //Introducir el producto
         System.out.println("Escribe el id del producto: ");
         int id = sc.nextInt();
         sc.nextLine();
 
+
+        //encontrar el producto selecionado y asignarlo
         Producto pEncontrado = pPrestados.stream()
                 .filter(p ->{
                     try{
@@ -231,12 +251,15 @@ public class Main {
     }
     public static void anhadirUsuario(){
         String nombre;
+
+        //introducir nombre por consola
         while (true){
             System.out.println("Introduce el nombre del nuevo usuario:");
             nombre = sc.nextLine();
             if (nombre == null) nombre ="";
             nombre = nombre.trim();
 
+            //nombres invalidos
             if (nombre.isEmpty()){
                 System.out.println("Nombre no valido,intenalo de nuevo.");
                 continue;

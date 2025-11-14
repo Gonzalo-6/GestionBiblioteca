@@ -39,6 +39,7 @@ public abstract class Producto {
 
 
 
+    //to Srting
     @Override
     public String toString() {
         return "Producto{" +
